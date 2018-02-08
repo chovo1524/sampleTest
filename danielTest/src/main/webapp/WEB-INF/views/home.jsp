@@ -14,6 +14,7 @@
 		<input type="button" onClick="btnClick('play')" value="Play" id="playBtn">
 		<input type="button" onClick="btnClick('read')" value="Read/Wirte" id="readBtn">
 		<input type="button" onClick="btnClick('javaPlay')" value="JavaPlay" id="javaPlayBtn">
+		<input type="button" onClick="btnClick('stream')" value="Stream" id="javaPlayBtn">
 		
 		<div id="audioPalyerDiv" style="margin-top: 20px; display: none;"><audio src="" id="audioPalyer" controls="controls"></audio></div>
 	</div>
@@ -25,6 +26,14 @@
 	function btnClick(_url) {
 		$("#audioPalyer").trigger("pause");
 		$("#audioPalyerDiv").hide();
+		if(_url == "stream") {
+			$("#audioPalyerDiv").show();
+			var oAudio = document.getElementById('audioPalyer');
+            oAudio.currentTime = 30;
+            oAudio.src = _url;
+            oAudio.play();
+			return;
+		}
 		$.ajax({
 			type : "POST",
 			url : _url,

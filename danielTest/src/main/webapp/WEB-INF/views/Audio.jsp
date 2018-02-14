@@ -224,7 +224,7 @@ $(document).ready(function(){
 	
 	 var playObj = 'audioPlayObj';
      // mediaPlayer = new DioVLOGPlayer(playObj, '${audioPath}',1,'${duration}', 936); //오디오 재생 객체 생성
-     mediaPlayer = new DioVLOGPlayer(playObj, '/audio',1,'12000', 625); //오디오 재생 객체 생성
+     mediaPlayer = new DioVLOGPlayer(playObj, 'stream',1,'12000', 625); //오디오 재생 객체 생성
      // audioInfo = new AudioInfo("${audio_id}","${file_id}", "${send_recv_flg}","${audioInfo.agentSeq}", "${fileInfo.callFileName}", "${audioInfo.customerSeq}"); 
      audioInfo = new AudioInfo("1","2", "3","4", "5", "6");     //오디오 정보 객체 생성
      soundPlayer();

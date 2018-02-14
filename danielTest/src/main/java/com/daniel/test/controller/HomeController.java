@@ -1,5 +1,7 @@
 package com.daniel.test.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,6 +11,10 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -51,7 +57,6 @@ public class HomeController {
 		return "home";
 	}
 
-	
 	/* script Play */
 	@RequestMapping(value = "/play", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> play(Map<String, Object> map) {
@@ -65,38 +70,36 @@ public class HomeController {
 		return map;
 	}
 
-	
 	/* file read & write */
 	@RequestMapping(value = "/read", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> read(Map<String, Object> map) {
+	public @ResponseBody Map<String, Object> read(Map<String, Object> map, HttpServletResponse resp) {
 		logger.info("Welcome Read!");
 
 		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\"; // 파일경로
-
 		System.out.println(realFilePath);
 
+		int i = 0;
 		try {
-			int i = 0;
-			FileInputStream fis = new FileInputStream(realFilePath + "testWav.wav");
+			FileInputStream fis = new FileInputStream(realFilePath + "testPcm.wav");
 			FileOutputStream fos = new FileOutputStream(realFilePath + "dong.wav");
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(realFilePath + "testPcm.wav"));
+			String getFormat = ais.getFormat().toString();
+			System.out.println(getFormat);
 			
 			/*while ((i = fis.read()) != -1) {
 				fos.write(i);
 				System.out.print((char) i);
 			}*/
 			
-			String[] dd;
-			
-			//파일 내용을 담을 버퍼(?) 선언
-            byte[] readBuffer = new byte[1024];
-            while ( (i=fis.read(readBuffer, 0, readBuffer.length)) != -1) {
-            	//fos.write(fis.read( readBuffer ));
-            	fos.write(readBuffer);
-            	//System.out.println(i);
-            }
+			// 파일 내용을 담을 버퍼(?) 선언
+			byte[] readBuffer = new byte[1024];
+			while ((i = fis.read(readBuffer, 0, readBuffer.length)) != -1) {
+				fos.write(readBuffer);
+				// System.out.println(i);
+			}
+			System.out.println(new String(readBuffer));
 
-            System.out.println( new String( readBuffer ) ); //출력
-            
+			ais.close();
 			fis.close();
 			fos.close();
 		} catch (Exception e) {
@@ -135,5 +138,35 @@ public class HomeController {
 
 		return map;
 	}
-	
+
+	@RequestMapping(value = "/stream", method = RequestMethod.GET)
+	public void audio(Model model, HttpServletResponse resp) throws IOException {
+		logger.info("Welcome stream");
+
+		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\";
+		
+		FileOutputStream fos = new FileOutputStream(realFilePath + "dong.wav");
+		BufferedInputStream bis = null;
+		ServletOutputStream sos = null;
+		resp.setContentType("audio/x-wav");
+		resp.setHeader("Content-Disposition", "filename=abc.wav");
+		try {
+			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testPcm.wav"));
+			sos = resp.getOutputStream();
+
+			byte[] buf = new byte[1024];
+			int readByte = 0;
+			while((readByte = bis.read(buf)) != -1) {
+				sos.write(buf, 0, readByte);
+				fos.write(buf, 0, readByte);
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(bis != null)	bis.close();
+			if(sos != null)	sos.close();
+			if(fos != null)	fos.close();
+		}
+	}
+
 }

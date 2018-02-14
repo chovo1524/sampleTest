@@ -7,12 +7,12 @@
 <head>
     <title>
     </title>
-    <link rel="stylesheet" type="text/css" href="/resources/players/css/player.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/players/css/player.css" />
     
     <!-- UI 생성을 위한 js -->
-    <script type="text/javascript" src="/resources/players/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/resources/players/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script type="text/javascript" src="/resources/players/js/jquery.selectbox-0.6.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/jquery.selectbox-0.6.1.js"></script>
     
     <!-- Audio 기능을  위한 js -->
     <%
@@ -20,15 +20,15 @@
 		boolean isMSIE = ( ua != null && (ua.indexOf( "MSIE" ) != -1 || ua.indexOf("Trident") != -1));
 	%>
 	
-	<script type="text/javascript" src="/resources/players/js/Base.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/Base.js"></script>
 	<% if( isMSIE ){ %>
-	<script type="text/javascript" src="/resources/players/js/kr.co.diotek.media.player.js"></script>
-	<script type="text/javascript" src="/resources/players/js/kr.co.diotek.vlog.player.js"></script>	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/kr.co.diotek.media.player.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/kr.co.diotek.vlog.player.js"></script>	
 	<% } else { %>
-	<script type="text/javascript" src="/resources/players/js/kr.co.diotek.media.player_chrome.js"></script>
-	<script type="text/javascript" src="/resources/players/js/kr.co.diotek.vlog.player_chrome.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/kr.co.diotek.media.player_chrome.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/kr.co.diotek.vlog.player_chrome.js"></script>
     <% } %>
-    <script type="text/javascript" src="/resources/players/js/player.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/player.js"></script>
 </head>
 <body>
 	<div class="player_wrap">
@@ -59,7 +59,7 @@
 			</div>
 			<div class="sound_area">
 				<div class="soundmap">
-					<img src="/resources/players/image/wav.png" alt="" id="mapping">
+					<img src="${pageContext.request.contextPath}/resources/players/image/wav.png" alt="" id="mapping">
 					<div class="maphiglight_group">
 					<div class="maphiglight"></div>
 					<div class="mapshadow_left"></div>
@@ -69,7 +69,7 @@
 				<div class="sound">
 					<div class="sound_inner">
 						<div class="bg_recoding"></div>
-						<img src="/resources/players/image/wav.png" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
+						<img src="${pageContext.request.contextPath}/resources/players/image/wav.png" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
 					</div>
 					<!--
 					<div class="soundbar_group">

@@ -56,6 +56,19 @@ public class HomeController {
 
 		return "home";
 	}
+	
+	@RequestMapping(value = "/audio", method = RequestMethod.GET)
+	public String audio(Model model) {
+		logger.info("Welcome audio!");
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+
+		return "Audio";
+	}
 
 	/* script Play */
 	@RequestMapping(value = "/play", method = RequestMethod.POST)

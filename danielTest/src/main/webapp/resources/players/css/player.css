@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+@import url("./default.css");
+@import url("./jquery.selectbox.css");
+@import url("./jquery.mCustomScrollbar.css");
+
+.marginR10 {margin-right:10px}
+.floatR {float:right}
+
+.soundplayer .sort {width: 100%;height: 36px;border-top: 1px solid #656f89;border-bottom: 1px solid #656f89;background: #767f97;}
+.sort > ul {overflow:hidden;height:23px;padding-top:13px;/*border-top:1px solid #7d869c;border-bottom:1px solid #7d869c;*/}
+.sort > ul li {float:left;margin-right:20px}
+.sort > ul li:first-child {margin:0 20px 0 11px}
+.sort > ul li:last-child {margin-right:0}
+.sort > ul label {display:inline-block;margin-left:1px;vertical-align:top;}
+
+/* 소팅 라디오버튼 디자인 */
+.player_wrap .list {position:relative;font-size:12px;color:#fff;width:40px;height:14px;line-height:14px}
+.list .radiobtn {visibility:hidden;width:14px;height:14px;line-height:0;vertical-align:top}
+.list .designRadio {position:absolute;left:0;top:-2px;width:14px;height:14px}
+.list .radio {display:block;width:14px;height:14px;background:url(../image/radio_btn.png) no-repeat center;background-position:0 0}
+.list .radio.checked {background-position:-14px 0}
+
+.soundplayer .sound_area {overflow:hidden;border-bottom:1px solid #494949;background:#363636}
+.sound_area .soundmap {position:relative;height:43px;margin:2px 12px 1px 11px;border:1px solid rgba(118,127,151,0.5);}
+.sound_area .soundmap img {width:100%;height:43px;}
+
+.sound_area .maphiglight_group {}
+.sound_area .maphiglight {position:absolute;top:0;left:10px;width:43px;height:41px;border:1px solid rgba(256,256,256,0.3);background:rgba(0,0,0,0.3);}
+.sound_area .mapshadow_left {position:absolute;top:0;left:0;width:11px;height:43px;background:rgba(256,256,256,0.2);}
+.sound_area .mapshadow_right {position:absolute;top:0;right:0;width:1073px;height:43px;background:rgba(256,256,256,0.2);}
+
+.sound_area .mapshadow {position:absolute;top:0;left:0;width:100%;height:43px;background:rgba(0,0,0,0.5);}
+
+.sound_area .sound {position:relative; margin:0 11px 2px 11px;padding-top:1px;border-top:1px solid #101010;}
+.sound_area .sound_inner {overflow:hidden; position:relative;}
+.sound_area .sound_inner .bg_recoding{position: absolute; left:0; width:100%;height: 100%;background:rgba(16,16,16,1); z-index:1;}
+.sound_area .sound_inner img {width:auto;height:77px;}
+.sound_area .soundbar_group {position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;height:77px;}
+.sound_area .soundbar_group a {position:absolute;top:1px;width:13px;height:77px;margin-left:-6px;z-index:9;background:url(../image/soundbar.png) no-repeat left top;text-indent:-9999em;cursor:pointer}
+.sound_area .leftbar {left:30%} /* 위치 조정될 부분 */
+.sound_area .rightbar {left:50%} /* 위치 조정될 부분 */
+.sound_area .leftlayer {position:absolute;top:1px;left:0;width:30%;height:77px;background:rgba(0,0,0,0.5);z-index:8}
+.sound_area .rightlayer {position:absolute;top:1px;right:0;width:50%;height:77px;background:rgba(0,0,0,0.5);z-index:8}
+
+.soundplayer .progressbar_area {height:14px;padding:9px 11px 0 11px;background:#1b1b1b}
+.progressbar_area .progressbar_bg {position:relative;float:left;width:100%;height:5px;background:#494949}
+.progressbar_area .progressbar {width:0;height:100%;background:red}
+.progressbar_area .progress_pointer {position:absolute;top:-32px;left:0%;width:25px;height:32px;margin-left:-12px;z-index:10;background:url(../image/progress_pointer.png) no-repeat center;text-indent:-9999em;cursor:pointer;padding:0;border:0 none}
+
+.soundplayer .playermenu_area {position:relative;height:78px;padding:0 11px 0 10px;background:#eaeaea;}
+.playermenu_area .playertime {overflow:hidden;padding-top:5px;font-size:12px;color:#1b1b1b;font-weight:normal; display:block;}
+.playermenu_area .playertime p:first-child {float:left}
+.playermenu_area .playertime p:last-child {float:right}
+.playermenu_area .arrow {position:absolute;bottom:-10px;left:50%;width:15px;height:10px;margin-left:-7px;background:url(../image/bg_arrow.png) no-repeat center}
+
+.soundplayer .time_controler {float:left;width:99px;height:15px;padding:7px 0 0 27px;margin-top:16px;background:url(../image/controler.png) no-repeat left 0px}
+.time_controler .controlbar {position:relative;width:97px;height:4px}
+.time_controler .controlProgress {position:absolute;left:50%;top:0;width:0;height:4px;background:#e2001a}
+.time_controler .pointer {position:absolute;top:-15px;left:48px;width:13px;height:17px;margin-left:-6px;background:url(../image/controler_pointer.png) no-repeat center;text-indent:-9999em;cursor:pointer}
+.time_controler .speed li{position:absolute;bottom:-15px;float:left;background:url(../image/time_controler_num.png) no-repeat;text-indent:-9999em}
+.time_controler .speed li:nth-child(1){left:-5px;width:8px;height:5px;background-position:0px 0px}
+.time_controler .speed li:nth-child(2){left:11px;width:8px;height:5px;background-position:-16px 0px}
+.time_controler .speed li:nth-child(3){left:25px;width:14px;height:5px;background-position:-29px 0px}
+.time_controler .speed li:nth-child(4){left:47px;width:3px;height:5px;background-position:-52px 0px}
+.time_controler .speed li:nth-child(5){left:60px;width:11px;height:5px;background-position:-65px 0px}
+.time_controler .speed li:nth-child(6){left:78px;width:5px;height:5px;background-position:-83px 0px}
+.time_controler .speed li:nth-child(7){left:94px;width:5px;height:5px;background-position:-99px 0px}
+
+.soundplayer .controler {float:left;margin-left:180px;margin-top:-8px;width:360px;}
+.controler .player_select{float:left;}
+.controler .select_g67 {width:50px}
+.controler .slider_bg2 {display:none;position:absolute;left:-2px;top:114px;width:67px;height:13px;background:url(../image/select_bg.png) no-repeat}
+
+.controler .controler_btn {overflow:hidden;}
+.controler_btn li {display:inline-block}
+.controler_btn li input {padding:0;margin:0;border:0 none}
+.controler_btn span {display:inline-block;padding-left:8px;margin-left:4px;background:url(../image/division_1x36.png) no-repeat left top}
+
+
+/* 컨트롤 버튼 비활성화 */
+.control_prev_btn {width:36px;height:36px;background:url(../image/prev_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+.control_next_btn {width:36px;height:36px;background:url(../image/next_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+.control_play_btn {width:50px;height:50px;background:url(../image/play_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+.control_stop_btn {width:36px;height:36px;background:url(../image/stop_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+.control_allreplay_btn {width:36px;height:36px;background:url(../image/allreplay_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+.control_playloof_btn {width:36px;height:36px;background:url(../image/playloof_off_btn.png) no-repeat center;text-indent:-9999em;cursor:pointer;}
+/* 컨트롤 버튼 활성화 */
+.control_prev_btn.on {width:36px;height:36px;background:url(../image/prev_on_btn.png) no-repeat center;text-indent:-9999em}
+.control_next_btn.on {width:36px;height:36px;background:url(../image/next_on_btn.png) no-repeat center;text-indent:-9999em}
+.control_play_btn.on {width:50px;height:50px;background:url(../image/play_on_btn.png) no-repeat center;text-indent:-9999em}
+.control_stop_btn.on {width:36px;height:36px;background:url(../image/stop_on_btn.png) no-repeat center;text-indent:-9999em}
+.control_allreplay_btn.on {width:36px;height:36px;background:url(../image/allreplay_on_btn.png) no-repeat center;text-indent:-9999em}
+.control_playloof_btn.on {width:36px;height:36px;background:url(../image/playloof_on_btn.png) no-repeat center;text-indent:-9999em}
+
+.soundplayer .volumebox {float:right;width:123px;height:17px;/*padding-left:23px;*/margin-top:13px;}
+.volumebox .volume_btn {float:left;width:17px;height:17px;background:url(../image/volume.png) no-repeat left top;text-indent:-9999em;cursor:pointer;margin:0;padding:0;border:0 none}
+.volumebox .volume_btn.off {float:left;width:17px;height:17px;background:url(../image/volume_mute.png) no-repeat left top}
+.volumebox .volumbar_bg {float:left;width:100px;height:4px;margin-left:5px;margin-top:7px;background:#bfc2c7}
+.volumebox .volumbar {width:100%;height:100%;background:#e2001a}
+

@@ -1,0 +1,85 @@
+/* basic scrollbar styling */
+/* vertical scrollbar */
+.mCSB_container{width:auto;margin-right:22px;overflow:hidden} 
+.areaCenter .mCSB_container{width:auto;margin-right:21px;overflow:hidden}
+.result_area_inner .mCSB_container{width:auto;margin-right:5px;overflow:hidden}
+.mCSB_container.mCS_no_scrollbar{margin-right:22px}
+.dashboardContnet .mCSB_container {margin-right:0 !important}
+.dashboardContnet .mCSB_container.mCS_no_scrollbar {margin-right:0 !important}
+.mCS_disabled>.mCustomScrollBox>.mCSB_container.mCS_no_scrollbar,
+.mCS_destroyed>.mCustomScrollBox>.mCSB_container.mCS_no_scrollbar{margin-right:30px} 
+.mCustomScrollBox>.mCSB_scrollTools{width:5px;height:100%;top:0;right:0}
+.mCSB_scrollTools .mCSB_draggerContainer{position:absolute;top:0;left:0;bottom:0;right:0;height:auto}
+.mCSB_scrollTools a+.mCSB_draggerContainer{margin:20px 0}
+.mCSB_scrollTools .mCSB_draggerRail{width:5px;height:100%;margin:0 auto;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}
+.mCSB_scrollTools .mCSB_dragger{cursor:pointer;width:100%;height:30px}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{width:4px;height:100%;margin:0 auto;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;text-align:center}
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown{display:block;position:relative;height:20px;overflow:hidden;margin:0 auto;cursor:pointer}
+.mCSB_scrollTools .mCSB_buttonDown{top:100%;margin-top:-40px}
+.mCSB_scrollTools a+.mCSB_draggerContainer{margin:16px 0}
+
+.mCustomScrollBox>.mCSB_scrollTools {width:17px;!important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.main_contents_inner>.mCustomScrollBox>.mCSB_scrollTools, 
+.left_area .mCustomScrollBox>.mCSB_scrollTools, 
+.right_area .mCustomScrollBox>.mCSB_scrollTools, 
+.areaLeft .mCustomScrollBox>.mCSB_scrollTools, 
+.areaCenter .mCustomScrollBox>.mCSB_scrollTools,
+.areaRight .mCustomScrollBox>.mCSB_scrollTools {width:5px;!important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.mCustomScrollBox .mCustomScrollBox>.mCSB_scrollTools {width:17px;!important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.chanel_area .mCustomScrollBox>.mCSB_scrollTools {width:5px;!important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.mCustomScrollBox .scrollbox .mCSB_scrollTools,.result_area_inner .mCustomScrollBox .mCSB_scrollTools {width:5px;!important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_white.gif) no-repeat 0 0 !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_white.gif) no-repeat 0 bottom !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.jquery-selectbox-list .mCSB_dragger_bar {width:17px !important;background:#ddd !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+.jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {width:100% !important;background:#f3f3f3 !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+
+
+#ui-datepicker-div .mCSB_container, .sort .mCSB_container, .tablestyle .mCSB_container, .sort03.sort03_01 .mCSB_container {margin-right:18px !important}
+.scrollbox .mCSB_container {margin-right:0px !important}
+
+.sort .mCSB_scrollTools a+.mCSB_draggerContainer{margin:20px 0}
+.sort .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_blue.gif) no-repeat 0 0 !important}
+.sort .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_blue.gif) no-repeat 0 bottom !important}
+.sort .jquery-selectbox-list .mCSB_dragger_bar {background:#b3b7c7 !important}
+.sort .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {background:#868ea4 !important}
+
+.sort03.sort03_01 .mCSB_scrollTools a+.mCSB_draggerContainer{margin:20px 0}
+.sort03.sort03_01 .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_blue02.gif) no-repeat 0 0 !important}
+.sort03.sort03_01 .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_blue02.gif) no-repeat 0 bottom !important}
+.sort03.sort03_01 .jquery-selectbox-list .mCSB_dragger_bar {background:#b9bdcc !important}
+.sort03.sort03_01 .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {background:#9aa1b3 !important}
+
+.sort .sort_search02 .mCSB_scrollTools a+.mCSB_draggerContainer{margin:16px 0}
+.sort .sort_search02 .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_white.gif) no-repeat 0 0 !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.sort .sort_search02 .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_white.gif) no-repeat 0 bottom !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.sort .sort_search02 .jquery-selectbox-list .mCSB_dragger_bar {width:17px !important;background:#ddd !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+.sort .sort_search02 .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {width:100% !important;background:#f3f3f3 !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+
+.sort .sort_search04 .mCSB_scrollTools a+.mCSB_draggerContainer{margin:16px 0}
+.sort .sort_search04 .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_white.gif) no-repeat 0 0 !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.sort .sort_search04 .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_white.gif) no-repeat 0 bottom !important;opacity:1 !important;filter:"alpha(opacity=100)"}
+.sort .sort_search04 .jquery-selectbox-list .mCSB_dragger_bar {width:17px !important;background:#ddd !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+.sort .sort_search04 .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {width:100% !important;background:#f3f3f3 !important;opacity:1 !important;filter:"alpha(opacity=100)";border-radius:0px !important}
+
+.stats_inner .sort .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_navy.gif) no-repeat 0 0 !important}
+.stats_inner .sort .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_navy.gif) no-repeat 0 bottom !important}
+.stats_inner .sort .jquery-selectbox-list .mCSB_dragger_bar {background:#697084 !important}
+.stats_inner .sort .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {background:#4b5366 !important}
+
+.slider_btn .mCSB_container {margin-right:14px}
+.slider_btn .mCustomScrollBox>.mCSB_scrollTools {width:13px}
+.slider_btn .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_none.gif) no-repeat 0 0 !important}
+.slider_btn .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_none.gif) no-repeat 0 bottom !important}
+.slider_btn .jquery-selectbox-list .mCSB_dragger_bar {width:13px;background:#e8e9ea !important}
+.slider_btn .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {background:#fff !important}
+
+.jquery-selectbox-currentItem {float:none !important}
+
+.controler .mCSB_container {width:50px;margin-right:14px}
+.controler .mCustomScrollBox>.mCSB_scrollTools {width:13px}
+.controler .mCSB_scrollTools .mCSB_buttonUp {background:url(../image/btn_scroll_up_controler.png) no-repeat 0 0 !important}
+.controler .mCSB_scrollTools .mCSB_buttonDown {background:url(../image/btn_scroll_down_controler.png) no-repeat 0 bottom !important}
+.controler .jquery-selectbox-list .mCSB_dragger_bar {width:13px;background:#c0c3c7 !important}
+.controler .jquery-selectbox-list .mCSB_scrollTools .mCSB_draggerRail {background:#e3e7ec !important}
+

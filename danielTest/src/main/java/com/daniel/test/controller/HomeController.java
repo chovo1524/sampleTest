@@ -12,12 +12,14 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,9 +59,9 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/audio", method = RequestMethod.GET)
-	public String audio(Model model) {
-		logger.info("Welcome audio!");
+	@RequestMapping(value = "/audioTest", method = RequestMethod.GET)
+	public String audioTest(Model model) {
+		logger.info("Welcome audioTest!");
 
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -67,20 +69,151 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "Audio";
+		return "audioTest";
 	}
+	@RequestMapping(value = "/playerLoad", method = RequestMethod.GET)
+	public String playerLoad(Model model, HttpServletRequest req) {
+		logger.info("Welcome playerLoad!");
 
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+		model.addAttribute("serverTime", formattedDate);
+		
+		int type = Integer.parseInt(req.getParameter("type"));
+		model.addAttribute("type", type);
+		return "playerLoad";
+	}
+	
+//	@RequestMapping(value = "/audio", method = RequestMethod.GET)
+//	public String audio(Model model) {
+//		logger.info("Welcome audio!");
+//
+//		Date date = new Date();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//		String formattedDate = dateFormat.format(date);
+//
+//		model.addAttribute("serverTime", formattedDate);
+//
+//		return "Audio";
+//	}
+	@RequestMapping(value = "/audio/api/1", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> audio_api_1(Map<String, Object> map) {
+		logger.info("Welcome api audio_api_1!");
+
+		map.put("type", "1");
+		map.put("url", "audio1");
+		
+		return map;
+	}
+	@RequestMapping(value = "/audio/api/2", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> audio_api_2(Map<String, Object> map) {
+		logger.info("Welcome api audio_api_2!");
+
+		map.put("type", "2");
+		map.put("url", "audio2");
+		
+		return map;
+	}
+	@RequestMapping(value = "/audio/api/3", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> audio_api_3(Map<String, Object> map) {
+		logger.info("Welcome api audio_api_3!");
+
+		map.put("type", "3");
+		map.put("url", "audio3");
+		
+		return map;
+	}
+	@RequestMapping(value = "/audio/api/4", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> audio_api_4(Map<String, Object> map) {
+		logger.info("Welcome api audio_api_4!");
+
+		map.put("type", "4");
+		map.put("url", "audio4");
+		
+		return map;
+	}
 	/* script Play */
 	@RequestMapping(value = "/play", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> play(Map<String, Object> map) {
 		logger.info("Welcome Play!");
 
-		String filePath = "/resources/file/testWav.wav"; // 파일경로
+		String filePath = "/resources/file/testWav.wav"; // �뙆�씪寃쎈줈
 
 		map.put("type", "play");
 		map.put("filePath", filePath);
 
 		return map;
+	}
+	@RequestMapping(value = "/audio1", method = RequestMethod.GET)
+	public String audio1(Model model) {
+		logger.info("Welcome audio1!");
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+		
+		model.addAttribute("type", "1");
+		model.addAttribute("agentName", "홍길동");
+		model.addAttribute("callDurationToStr", "00:05:21");
+		model.addAttribute("wavImgPath", "/test/resources/players/image/wav.png");
+		model.addAttribute("audioPath", "/test/resources/players/media/testWav.wav");
+		
+		return "Audio";
+	}
+	@RequestMapping(value = "/audio2", method = RequestMethod.GET)
+	public String audio2(Model model) {
+		logger.info("Welcome audio2!");
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+		
+		model.addAttribute("type", "2");
+		return "Audio";
+	}
+	@RequestMapping(value = "/audio3", method = RequestMethod.GET)
+	public String audio3(Model model) {
+		logger.info("Welcome audio3!");
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+		
+		model.addAttribute("type", "3");
+		model.addAttribute("agentName", "홍길동");
+		model.addAttribute("callDurationToStr", "00:05:21");
+		model.addAttribute("callSilenceDurationToStr", "00:06:00");
+		model.addAttribute("callLappingDurationToStr", "00:04:00");
+		model.addAttribute("rx_wavImgPath", "/test/resources/players/image/rx_wav.png");
+		model.addAttribute("tx_wavImgPath", "/test/resources/players/image/tx_wav.png");
+		model.addAttribute("audioPath", "/test/resources/players/media/testWav.wav");
+		return "Audio";
+	}
+	@RequestMapping(value = "/audio4", method = RequestMethod.GET)
+	public String audio4(Model model) {
+		logger.info("Welcome audio4!");
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate);
+
+		model.addAttribute("type", "4");
+		model.addAttribute("agentName", "홍길동");
+		model.addAttribute("callDurationToStr", "00:05:21");
+		model.addAttribute("callSilenceDurationToStr", "00:06:00");
+		model.addAttribute("callLappingDurationToStr", "00:04:00");
+		model.addAttribute("wavImgPath", "/test/resources/players/image/wav.png");
+		model.addAttribute("audioPath", "/test/resources/players/media/testWav.wav");
+		return "Audio";
 	}
 
 	/* java Play */
@@ -88,7 +221,7 @@ public class HomeController {
 	public @ResponseBody Map<String, Object> javaPlay(Map<String, Object> map) {
 		logger.info("Welcome javaPlay!");
 
-		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\"; // 파일경로
+		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\"; // �뙆�씪寃쎈줈
 
 		System.out.println(realFilePath);
 
@@ -116,7 +249,7 @@ public class HomeController {
 	public @ResponseBody Map<String, Object> readWrite(Map<String, Object> map) {
 		logger.info("Welcome readWrite!");
 
-		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\"; // 파일경로
+		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\"; // �뙆�씪寃쎈줈
 		System.out.println(realFilePath);
 
 		int i = 0;
@@ -132,7 +265,7 @@ public class HomeController {
 				System.out.print((char) i);
 			}*/
 			
-			// 파일 내용을 담을 버퍼(?) 선언
+			// �뙆�씪 �궡�슜�쓣 �떞�쓣 踰꾪띁(?) �꽑�뼵
 			byte[] readBuffer = new byte[1024];
 			while ((i = fis.read(readBuffer, 0, readBuffer.length)) != -1) {
 				fos.write(readBuffer);
@@ -207,7 +340,7 @@ public class HomeController {
 			AudioFormat af = aff.getFormat();
 			
 			fis = new FileInputStream(realFilePath + "copyTestPcm.wav");
-			sos = resp.getOutputStream(); // 브라우저에 보낼 Stream
+			sos = resp.getOutputStream(); // 釉뚮씪�슦���뿉 蹂대궪 Stream
 			
 			int size = fis.available();
 			
@@ -255,13 +388,13 @@ public class HomeController {
 		
 		
 		/*
-		 * 원본 wav 파일을 복사를 하고 복사중인 파일을 가져와 출력 및 재생 방식
+		 * �썝蹂� wav �뙆�씪�쓣 蹂듭궗瑜� �븯怨� 蹂듭궗以묒씤 �뙆�씪�쓣 媛��졇�� 異쒕젰 諛� �옱�깮 諛⑹떇
 		 */
 		try {
-			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testPcm.wav")); // 처음 불러올 완성된 파일
-			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copyTestPcm.wav")); // 저장중인 파일
-			sos = resp.getOutputStream(); // 브라우저에 보낼 Stream
-			cbis = new BufferedInputStream(new FileInputStream(realFilePath + "copyTestPcm.wav")); // 불러올 저장중인 파일
+			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testPcm.wav")); // 泥섏쓬 遺덈윭�삱 �셿�꽦�맂 �뙆�씪
+			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copyTestPcm.wav")); // ���옣以묒씤 �뙆�씪
+			sos = resp.getOutputStream(); // 釉뚮씪�슦���뿉 蹂대궪 Stream
+			cbis = new BufferedInputStream(new FileInputStream(realFilePath + "copyTestPcm.wav")); // 遺덈윭�삱 ���옣以묒씤 �뙆�씪
 			
 			byte[] buf = new byte[1024];
 			byte[] sBuf = new byte[1024];
@@ -269,13 +402,13 @@ public class HomeController {
 			int readByte = 0;
 			long start = new Date().getTime();
 			
-			// 파일 뒷 부분부터 불러오기 위함
+			// �뙆�씪 �뮮 遺�遺꾨��꽣 遺덈윭�삤湲� �쐞�븿
 			File testFile = new File(realFilePath + "copyTestPcm.wav");
 			int k =0;
 			
 			while((readByte = bis.read(buf, 0, buf.length)) != -1) {
 				//sos.write(buf, 0, readByte);
-				bos.write(buf, 0, readByte); // 저장중인 파일
+				bos.write(buf, 0, readByte); // ���옣以묒씤 �뙆�씪
 				
 				//
 				System.out.println("==>"+testFile.length());
@@ -285,15 +418,15 @@ public class HomeController {
 				if(k >200) {
 					cbis.skip(testFile.length()-1024);
 					
-					while((cbis.read(sBuf, 0, sBuf.length)) != -1) { // 저장중인 파일을 읽어오기 
-						sos.write(sBuf, 0, readByte); // 저장중인 파일을 읽어와 브라우저에 Stream 보내기
+					while((cbis.read(sBuf, 0, sBuf.length)) != -1) { // ���옣以묒씤 �뙆�씪�쓣 �씫�뼱�삤湲� 
+						sos.write(sBuf, 0, readByte); // ���옣以묒씤 �뙆�씪�쓣 �씫�뼱�� 釉뚮씪�슦���뿉 Stream 蹂대궡湲�
 					}
 				}
 			}
 			long end = new Date().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("MM:ss");
 			String time = sdf.format(end-start);
-			System.out.println("복사시간 : " + time);
+			System.out.println("蹂듭궗�떆媛� : " + time);
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -304,7 +437,7 @@ public class HomeController {
 		
 		
 		/*
-		 * 파일 포맷 정보 보기
+		 * �뙆�씪 �룷留� �젙蹂� 蹂닿린
 		 */
 		/*AudioFileFormat aff = AudioSystem.getAudioFileFormat(new File(realFilePath + "testPcm.wav"));
 		AudioFormat af = aff.getFormat();
@@ -314,7 +447,7 @@ public class HomeController {
 		
 		
 		/*
-		 * 오디오 데이터가 포함 된 InputStream 주어지면 입력 데이터의 WAV 변환을 포함하는 byte 배열 생성 방식
+		 * �삤�뵒�삤 �뜲�씠�꽣媛� �룷�븿 �맂 InputStream 二쇱뼱吏�硫� �엯�젰 �뜲�씠�꽣�쓽 WAV 蹂��솚�쓣 �룷�븿�븯�뒗 byte 諛곗뿴 �깮�꽦 諛⑹떇
 		 */
 		/*String uploadedFileLocation = realFilePath;
 		String fileName = "test";

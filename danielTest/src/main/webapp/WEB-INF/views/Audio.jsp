@@ -1,6 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,9 +13,15 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/players/js/jquery.selectbox-0.6.1.js"></script>
     
-    <!-- Audio 기능을  위한 js -->
     <%
-		String ua = request.getHeader( "User-Agent" );
+    	String s_type = (String) request.getAttribute("type");
+    	int type = 0;
+ 		if(s_type != null){
+ 			type = Integer.parseInt(s_type);
+ 		}
+    %>
+	<%
+    	String ua = request.getHeader( "User-Agent" );
 		boolean isMSIE = ( ua != null && (ua.indexOf( "MSIE" ) != -1 || ua.indexOf("Trident") != -1));
 	%>
 	
@@ -34,42 +39,32 @@
 	<div class="player_wrap">
 		<div class="soundplayer">
 			<div class="sort">
-				<ul class="floatR marginR10">
-					<li>
-						<span class="list first">
-						<span class="designRadio"><span class="radio checked"></span></span>
-						<input type="radio" class="radiobtn" name="select" value="전체" id="" checked="">
-						<label for="select" class="select_label">전체</label>
-						</span>
-					</li>
-					<li>
-						<span class="list">
-						<span class="designRadio"><span class="radio"></span></span>
-						<input type="radio" class="radiobtn" name="select" value="개별" id="">
-						<label for="select" class="select_label">송신</label>
-					</span>
-					</li>
-					<li>
-						<span class="list">
-						<span class="designRadio"><span class="radio"></span></span>
-						<input type="radio" class="radiobtn" name="select" value="수" id=""><label for="select" class="select_label">수신</label>
-						</span>
-					</li>
-				</ul>
+				<div>모니터링 정보 : ${agentName}(상담원) /재생시간 [${callDurationToStr}]</div>
+				<%if (type == 3 || type == 4) { %>
+					<div>묶음구간 [${callSilenceDurationToStr}]</div>
+					<div>말겹침구간 [${callLappingDurationToStr}]</div>
+				<% } %>  
+				<%if (type != 2 ) { %>
+					<div>다운로드</div>
+				<% } %>  
 			</div>
 			<div class="sound_area">
-				<div class="soundmap">
-					<img src="${pageContext.request.contextPath}/resources/players/image/wav.png" alt="" id="mapping">
-					<div class="maphiglight_group">
-					<div class="maphiglight"></div>
-					<div class="mapshadow_left"></div>
-					<div class="mapshadow_right"></div>
+				<%if (type == 3) { %>
+				 <div class="sound">
+					<div class="sound_inner">
+						<div class="bg_recoding"></div>
+							<img src="${rx_wavImgPath}" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
 					</div>
 				</div>
+				<% } %>  
 				<div class="sound">
 					<div class="sound_inner">
 						<div class="bg_recoding"></div>
-						<img src="${pageContext.request.contextPath}/resources/players/image/wav.png" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
+				<%if (type == 1 || type == 4) { %>
+							<img src="${wavImgPath}" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
+				<% } else if (type == 3) {%>
+							<img src="${tx_wavImgPath}" alt="" style="position: relative; left: 0px;"><!-- 파장으로 변경될 이미지 -->
+				<% } %>    
 					</div>
 					<!--
 					<div class="soundbar_group">
@@ -93,6 +88,13 @@
 					<p id="playTime">00:00:00</p><!-- 현재 재생시간 -->
 					<p id="totalTime">00:00:00</p><!-- 총 재생시간  -->
 				</div><!-- //playertime -->
+				<div class="volumebox">
+					<input type="button" class="volume_btn" title="음소거" onclick="mediaPlayer.setDioMute(this)"><!-- 음소거시 class=off 추가  -->
+					<div class="volumbar_bg">
+					<div class="volumbar"></div>
+					</div>
+				</div>
+				<!-- 
 				<div class="time_controler">
 					<div class="controlbar">
 						<div class="controlProgress"></div>
@@ -107,9 +109,11 @@
 							<li>3</li>
 						</ul>
 					</div>
-				</div><!-- //time_controler -->
+				</div> 
+				 --><!-- //time_controler -->
 				<div class="controler">
-				    <select name="val_value" id="val_value" class="select_g67 player_select">
+				<!--
+				 	<select name="val_value" id="val_value" class="select_g67 player_select">
 						<option value="5">5 sec</option>
 						<option value="10">10 sec</option>
 						<option value="15">15 sec</option>
@@ -118,24 +122,21 @@
 						<option value="180">3 min</option>
 						<option value="300">5 min</option>
 					</select>
+				 -->  
 					<div class="controler_btn"> <!-- 버튼 클릭시 해당 버튼 클래스 on 추가 -->
 						<ul>
+				<!--
 							<li><input type="button" class="control_prev_btn on" title="이전으로" onclick="mediaPlayer.setDioBack($('#val_value').val())"></li>
 							<li><input type="button" class="control_next_btn on" title="건너뛰기" onclick="mediaPlayer.setDioForware($('#val_value').val())"></li>
+				-->  
 							<li><input type="button" class="control_play_btn" id="play_btn" title="재생/일시정지" onclick="mediaPlayer.dioPlay(this);"></li>
 							<!-- <li><button type="button" class="control_play_btn" id="play_btn" title="재생/일시정지" onclick="mediaPlayer.dioPlaySetCurrentTime(this,'30');" >재생/일시정지</button></li> -->
 							<li><input type="button" class="control_stop_btn on" title="정지" onclick="mediaPlayer.dioStop(); initCnResultScroll();"></li>
-							<li><span><input type="button" class="control_allreplay_btn" title="전체반복" onclick="mediaPlayer.playLoop();"></span></li>
+							<!--<li><span><input type="button" class="control_allreplay_btn" title="전체반복" onclick="mediaPlayer.playLoop();"></span></li>-->
 							<!-- <li><span><button type="button" class="control_playloof_btn"  title="구간반복">구간반복</button></span></li> -->
 						</ul>
 					</div>
 				</div><!-- //controler -->
-				<div class="volumebox">
-					<input type="button" class="volume_btn" title="음소거" onclick="mediaPlayer.setDioMute(this)"><!-- 음소거시 class=off 추가  -->
-					<div class="volumbar_bg">
-					<div class="volumbar"></div>
-					</div>
-				</div>
 			</div><!-- //playermenu_area -->
 		</div>
 		<% if( isMSIE ){ %> 
@@ -224,7 +225,7 @@ $(document).ready(function(){
 	
 	 var playObj = 'audioPlayObj';
      // mediaPlayer = new DioVLOGPlayer(playObj, '${audioPath}',1,'${duration}', 936); //오디오 재생 객체 생성
-     mediaPlayer = new DioVLOGPlayer(playObj, 'stream',1,'12000', 625); //오디오 재생 객체 생성
+     mediaPlayer = new DioVLOGPlayer(playObj, '${audioPath}',1,'12000', 625); //오디오 재생 객체 생성
      // audioInfo = new AudioInfo("${audio_id}","${file_id}", "${send_recv_flg}","${audioInfo.agentSeq}", "${fileInfo.callFileName}", "${audioInfo.customerSeq}"); 
      audioInfo = new AudioInfo("1","2", "3","4", "5", "6");     //오디오 정보 객체 생성
      soundPlayer();

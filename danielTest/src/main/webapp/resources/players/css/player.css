@@ -33,7 +33,7 @@
 .sound_area .mapshadow {position:absolute;top:0;left:0;width:100%;height:43px;background:rgba(0,0,0,0.5);}
 
 .sound_area .sound {position:relative; margin:0 11px 2px 11px;padding-top:1px;border-top:1px solid #101010;}
-.sound_area .sound_inner {overflow:hidden; position:relative;}
+.sound_area .sound_inner {overflow:hidden; position:relative; height:77px;}
 .sound_area .sound_inner .bg_recoding{position: absolute; left:0; width:100%;height: 100%;background:rgba(16,16,16,1); z-index:1;}
 .sound_area .sound_inner img {width:auto;height:77px;}
 .sound_area .soundbar_group {position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;height:77px;}
@@ -67,7 +67,7 @@
 .time_controler .speed li:nth-child(6){left:78px;width:5px;height:5px;background-position:-83px 0px}
 .time_controler .speed li:nth-child(7){left:94px;width:5px;height:5px;background-position:-99px 0px}
 
-.soundplayer .controler {float:left;margin-left:180px;margin-top:-8px;width:360px;}
+.soundplayer .controler {float:left;/*margin-left:180px;*/margin-left:40px;margin-top:-8px;width:360px;}
 .controler .player_select{float:left;}
 .controler .select_g67 {width:50px}
 .controler .slider_bg2 {display:none;position:absolute;left:-2px;top:114px;width:67px;height:13px;background:url(../image/select_bg.png) no-repeat}
@@ -93,7 +93,7 @@
 .control_allreplay_btn.on {width:36px;height:36px;background:url(../image/allreplay_on_btn.png) no-repeat center;text-indent:-9999em}
 .control_playloof_btn.on {width:36px;height:36px;background:url(../image/playloof_on_btn.png) no-repeat center;text-indent:-9999em}
 
-.soundplayer .volumebox {float:right;width:123px;height:17px;/*padding-left:23px;*/margin-top:13px;}
+.soundplayer .volumebox {float:left;width:123px;height:17px;/*padding-left:23px;*/margin-top:13px;}
 .volumebox .volume_btn {float:left;width:17px;height:17px;background:url(../image/volume.png) no-repeat left top;text-indent:-9999em;cursor:pointer;margin:0;padding:0;border:0 none}
 .volumebox .volume_btn.off {float:left;width:17px;height:17px;background:url(../image/volume_mute.png) no-repeat left top}
 .volumebox .volumbar_bg {float:left;width:100px;height:4px;margin-left:5px;margin-top:7px;background:#bfc2c7}

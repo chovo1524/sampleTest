@@ -1,7 +1,8 @@
-package com.daniel.test.controller;
+package com.daniel.test.Controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -57,6 +58,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	/* audio page */
 	@RequestMapping(value = "/audio", method = RequestMethod.GET)
 	public String audio(Model model) {
 		logger.info("Welcome audio!");
@@ -121,9 +123,9 @@ public class HomeController {
 
 		int i = 0;
 		try {
-			FileInputStream fis = new FileInputStream(realFilePath + "testPcm.wav");
+			FileInputStream fis = new FileInputStream(realFilePath + "testWav.wav");
 			FileOutputStream fos = new FileOutputStream(realFilePath + "dong.wav");
-			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(realFilePath + "testPcm.wav"));
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(realFilePath + "testWav.wav"));
 			String getFormat = ais.getFormat().toString();
 			System.out.println(getFormat);
 			
@@ -163,8 +165,8 @@ public class HomeController {
 		BufferedOutputStream bos = null;
 		
 		try {
-			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testPcm.wav"));
-			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copyTestPcm.wav"));
+			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testWav.wav"));
+			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copytestWav.wav"));
 			
 			byte[] buf = new byte[1024];
 			
@@ -200,33 +202,80 @@ public class HomeController {
 		
 		resp.setContentType("audio/x-wav");
 		resp.setHeader("Content-Disposition", "dong.wav");
-		resp.setBufferSize(200);
 		
 		try {
-			AudioFileFormat aff = AudioSystem.getAudioFileFormat(new File(realFilePath + "copyTestPcm.wav"));
+			/*
+			 * 플레이 시간 알아내기 소스
+			 */
+			/*AudioFileFormat aff = AudioSystem.getAudioFileFormat(new File(realFilePath + "copytestWav.wav"));
 			AudioFormat af = aff.getFormat();
-			
-			fis = new FileInputStream(realFilePath + "copyTestPcm.wav");
-			sos = resp.getOutputStream(); // 브라우저에 보낼 Stream
+			System.out.println(aff.toString());
+			System.out.println(af.toString());
 			
 			int size = fis.available();
-			
 			int channels = af.getChannels();
 			int frameRate = (int) af.getFrameRate();
 			int bits = af.getSampleSizeInBits();
 			playTime = size / ((channels * frameRate * bits) / 8);
+			System.out.println("playTime : " + playTime);*/
 			
-			System.out.println("playTime : " + playTime);
+			/*
+			 * 파일 header 설정 및 생성
+			 */
+			/*double sampleRate = 44100.0;
+		    double frequency = 440;
+		    double frequency2 = 90;
+		    double amplitude = 1.0;
+		    double seconds = 2.0;
+		    double twoPiF = 2 * Math.PI * frequency;
+		    double piF = Math.PI * frequency2;
+		    float[] buffer = new float[(int) (seconds * sampleRate)];
+		    for (int sample = 0; sample < buffer.length; sample++) 
+		    {
+		        double time = sample / sampleRate;
+		        buffer[sample] = (float) (amplitude * Math.cos((double)piF *time)* Math.sin(twoPiF * time));
+		    }
+		    final byte[] byteBuffer = new byte[buffer.length * 2];
+		    int bufferIndex = 0;
+		    for (int i = 0; i < byteBuffer.length; i++) {
+		    final int x = (int) (buffer[bufferIndex++] * 32767.0);
+		    byteBuffer[i] = (byte) x;
+		    i++;
+		    byteBuffer[i] = (byte) (x >>> 8);
+		    }
+		    File out = new File("out10.wav");
+		    boolean bigEndian = false;
+		    boolean signed = true;
+		    int bits = 16;
+		    int channels = 1;
+		    AudioFormat format;
+		    format = new AudioFormat((float)sampleRate, bits, channels, signed, bigEndian);
+		    ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
+		    AudioInputStream audioInputStream;
+		    audioInputStream = new AudioInputStream(bais, format,buffer.length);
+		    AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
+		    audioInputStream.close();*/
 			
+			fis = new FileInputStream(realFilePath + "copytestWav.wav");
+			sos = resp.getOutputStream(); // 브라우저에 보낼 Stream
+			
+			// header 파일 설정 하기
+			boolean bigEndian = false;
+		    boolean signed = true;
+			int bits = 16;
+		    int channels = 2;
+			double sampleRate = 44100.0;
+			double seconds = 1000.0;
+			float[] buffer = new float[(int) (seconds * sampleRate)];
+			AudioFormat format;
+		    format = new AudioFormat((float)sampleRate, bits, channels, signed, bigEndian);
+			AudioInputStream audioInputStream;
+			audioInputStream = new AudioInputStream(fis, format,buffer.length);
+		    
 			byte[] buf = new byte[1024];
 			int readByte = 0;
-			int k = 0;
-			while((readByte = fis.read(buf, 0, buf.length)) != -1) {
-				k += 1;
-				//if(k > 200) {
-					//fis.mark(k);
-					sos.write(buf, 0, readByte);
-				//}
+			while((readByte = audioInputStream.read(buf, 0, buf.length)) != -1) {
+				sos.write(buf, 0, readByte);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -258,10 +307,10 @@ public class HomeController {
 		 * 원본 wav 파일을 복사를 하고 복사중인 파일을 가져와 출력 및 재생 방식
 		 */
 		try {
-			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testPcm.wav")); // 처음 불러올 완성된 파일
-			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copyTestPcm.wav")); // 저장중인 파일
+			bis = new BufferedInputStream(new FileInputStream(realFilePath + "testWav.wav")); // 처음 불러올 완성된 파일
+			bos = new BufferedOutputStream(new FileOutputStream(realFilePath + "copytestWav.wav")); // 저장중인 파일
 			sos = resp.getOutputStream(); // 브라우저에 보낼 Stream
-			cbis = new BufferedInputStream(new FileInputStream(realFilePath + "copyTestPcm.wav")); // 불러올 저장중인 파일
+			cbis = new BufferedInputStream(new FileInputStream(realFilePath + "copytestWav.wav")); // 불러올 저장중인 파일
 			
 			byte[] buf = new byte[1024];
 			byte[] sBuf = new byte[1024];
@@ -270,7 +319,7 @@ public class HomeController {
 			long start = new Date().getTime();
 			
 			// 파일 뒷 부분부터 불러오기 위함
-			File testFile = new File(realFilePath + "copyTestPcm.wav");
+			File testFile = new File(realFilePath + "copytestWav.wav");
 			int k =0;
 			
 			while((readByte = bis.read(buf, 0, buf.length)) != -1) {
@@ -306,7 +355,7 @@ public class HomeController {
 		/*
 		 * 파일 포맷 정보 보기
 		 */
-		/*AudioFileFormat aff = AudioSystem.getAudioFileFormat(new File(realFilePath + "testPcm.wav"));
+		/*AudioFileFormat aff = AudioSystem.getAudioFileFormat(new File(realFilePath + "testWav.wav"));
 		AudioFormat af = aff.getFormat();
 		System.out.println(aff.toString());
 		System.out.println(af.toString());

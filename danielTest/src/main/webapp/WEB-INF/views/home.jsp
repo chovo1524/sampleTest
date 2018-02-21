@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
 <html>
 <head>
@@ -20,6 +21,12 @@
 		<input type="button" onClick="btnClick('read')" value="read" id="readBtn">
 		
 		<div id="audioPalyerDiv" style="margin-top: 20px; display: none;"><audio src="" id="audioPalyer" controls="controls"></audio></div>
+		
+		<div id="waveform"></div>
+		<div id="waveFormBtn" style="display: none;">
+			<input type="button" onClick="wavesurfer.playPause()" value="Play/Pause">
+			<input type="button" onClick="wavesurfer.stop()" value="Stop">
+		</div>
 	</div>
 </body>
 </html>
@@ -29,6 +36,7 @@
 	function btnClick(_url) {
 		$("#audioPalyer").trigger("pause");
 		$("#audioPalyerDiv").hide();
+		$("#waveFormBtn").hide();
 		if(_url == "stream" || _url == "read") {
 			$("#audioPalyerDiv").show();
 			var oAudio = document.getElementById('audioPalyer');
@@ -36,6 +44,8 @@
             //oAudio.currentTime = ${playTime}
             console.log("${playTime}");
             oAudio.play();
+            wavesurfer.load(_url);
+            $("#waveFormBtn").show();
 			return;
 		}
 		$.ajax({
@@ -64,6 +74,18 @@
 			}
 		});
 	}
-
+	
+	// 음파 그리기
+	var wavesurfer = WaveSurfer.create({
+	    // id="waveform" 인 오브젝트에 파형 생성
+	    // 필수 옵션
+	    container: '#waveform',
+	    // 선택 옵션들 
+    	barWidth: 3,
+    	progressColor: '#E2B026',
+    	cursorColor: 'transparent',
+    	waveColor: '#333533'
+	});
+	
 </script>
 

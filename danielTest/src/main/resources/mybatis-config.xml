@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 여러가지 기본 옵션을 지정합니다. -->
+	<!-- <settings>
+		오라클 필드 속성이 READ_COUNT 처럼 언더 스코어가 있을 때 VO 의 readCount 처럼 카멜 케이스로 변환 되게 합니다.
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings> -->
+	
+	<!-- sql xml 의 result type 경로 설정 -->
+	<typeAliases>
+		<typeAlias alias="AudioVo" type="com.daniel.test.Vo.AudioVo" />
+	</typeAliases>
+	
+</configuration>

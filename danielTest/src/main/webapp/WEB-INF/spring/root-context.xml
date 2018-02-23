@@ -17,7 +17,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- MyBatis 설정 파일의 위치를 지정합니다. -->
-		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<!-- <property name="configLocation" value="classpath:/mybatis-config.xml" /> -->
 		<!-- SQL 파일의 위치를 지정합니다. -->
 		<property name="mapperLocations" value="classpath:/Mapper/*.xml" />
 	</bean>

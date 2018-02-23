@@ -5,7 +5,7 @@
 <mapper namespace="com.daniel.test.Dao.AudioDao">
 
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 rtVO 는 mybatis-confg.xml 에 Alias 되어  있습니다. -->
-	<select id="selectAudioList" resultType="AudioVo">
+	<select id="selectAudioList" resultType="hashMap" parameterType="String">
 		SELECT CALL_NO
 		, NO
 		, TYPE
@@ -13,6 +13,7 @@
 		, END_TIME
 		, TEXT
 		FROM TB_RT
+		WHERE CALL_NO = #{value}
 		ORDER BY CALL_NO DESC
 	</select>
 

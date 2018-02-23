@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,14 +25,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.daniel.test.Service.AudioService;
-import com.daniel.test.Vo.AudioVo;
 
 /**
  * Handles requests for the application home page.
@@ -66,13 +65,78 @@ public class AudioController {
 	 * loading page
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/loading", method = RequestMethod.POST)
-	public String loading(Model model, AudioVo audioVo) {
+	@RequestMapping(value = "/loading", method = RequestMethod.GET)
+	public String loading(Model model, HttpServletRequest req) {
 		logger.info("Welcome Loading!");
+		String type = req.getParameter("type");
+		String callNo = req.getParameter("callNo");
 		
-		model.addAttribute("getData", audioVo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("TYPE", type);
+		map.put("CALL_NO", callNo);
+		
+		model.addAttribute("getData", map);
 		
 		return "loading";
+	}
+	
+	/**
+	 * live page
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "/index/live", method = RequestMethod.GET)
+	public String live(Model model, HttpServletRequest req) {
+		logger.info("Welcome Live!");
+		
+		String callNo = req.getParameter("callNo");
+		System.out.println("CALL_NO : " + callNo);
+		
+		List<HashMap<String, Object>> chatList = audioService.getAudioList(callNo);
+		int i = 0;
+		int startTime = 0;
+		int endTime = 0;
+		int callSilenceDurationTotal = 0; // 총 묵음
+		int callLappingDurationTotal = 0; // 총 말 겹침
+		List callSilenceDuration = new ArrayList(); // 묵음 구간
+		List callLappingDuration = new ArrayList(); // 말 겹침 구간
+		for(HashMap<String, Object> time : chatList) {
+			startTime = Integer.valueOf((String) time.get("START_TIME"));
+			int check = startTime - endTime;
+			endTime = Integer.valueOf((String) time.get("END_TIME"));
+			
+			HashMap<String, Object> callSilenceCheckMap = new HashMap<String, Object>();
+			HashMap<String, Object> callLappingCheckMap = new HashMap<String, Object>();
+			
+			if (check > 0) {
+				callSilenceDurationTotal += check;
+				callSilenceCheckMap.put("startTime", Integer.valueOf((String) chatList.get(i).get("END_TIME")) / 1000);
+				callSilenceCheckMap.put("endTime", Integer.valueOf(startTime) / 1000);
+				callSilenceDuration.add(callSilenceCheckMap);
+				i++;
+			} else if (check < 0) {
+				callLappingDurationTotal += check;
+				callLappingCheckMap.put("startTime", Integer.valueOf(startTime) / 1000);
+				callLappingCheckMap.put("endTime", Integer.valueOf((String) chatList.get(i).get("END_TIME")) / 1000);
+				callLappingDuration.add(callLappingCheckMap);
+				i++;
+			}
+			
+			System.out.println("StarTime : " + startTime + " / EndTime : " + endTime);
+		}
+		callSilenceDurationTotal = callSilenceDurationTotal / 1000;
+		callLappingDurationTotal = Math.abs(callLappingDurationTotal / 1000);
+		System.out.println("묵음 : " + callSilenceDurationTotal + " / 말 겹침 : " + callLappingDurationTotal);
+		
+		
+		model.addAttribute("callSilenceDuration", callSilenceDuration);
+		model.addAttribute("callLappingDuration", callLappingDuration);
+		model.addAttribute("callSilenceDurationTotal", callSilenceDurationTotal);
+		model.addAttribute("callLappingDurationTotal", callLappingDurationTotal);
+		model.addAttribute("chatList", chatList);
+		model.addAttribute("callNo", callNo);
+		
+		return "live";
 	}
 	
 	/**
@@ -106,25 +170,19 @@ public class AudioController {
 			if(bis != null)	bis.close();
 			if(bos != null)	bos.close();
 		}
-		logger.info("Welcome Write! End");
 	}
-
+	
 	/**
-	 * file read
+	 * file reading
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/index/read", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> read(HttpServletResponse resp, HttpServletRequest req, Map<String, Object> map) throws Exception {
-		logger.info("Welcome Read!");
-		
-		map.put("url", "index/live");
-		System.out.println(req.getParameter("data"));
-		List<Object> chatList = audioService.getAudioList("dd");
-		map.put("chatList", chatList);
+	@RequestMapping(value = "/index/reading", method = RequestMethod.GET)
+	public @ResponseBody int reading(HttpServletResponse resp) throws Exception {
+		logger.info("Welcome Reading!");
 		
 		Thread.sleep(3000);
 		
-		/*String realFilePath = servletContext.getRealPath("/") + "resources\\file\\";
+		String realFilePath = servletContext.getRealPath("/") + "resources\\file\\";
 		FileInputStream fis = null;
 		
 		ServletOutputStream sos = null;
@@ -159,7 +217,32 @@ public class AudioController {
 		} finally {
 			if(fis != null)	fis.close();
 			if(sos != null)	sos.close();
-		}*/
+		}
+		
+		return 0;
+	}
+
+	/**
+	 * file read
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/index/read", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> read(HttpServletResponse resp, HttpServletRequest req, Map<String, Object> map) throws Exception {
+		logger.info("Welcome Read!");
+		
+		String callNo = req.getParameter("CALL_NO");
+		String type = req.getParameter("TYPE");
+		System.out.println("CALL_NO : " + callNo + " / TYPE : " + type);
+		
+		String url = "";
+		if(type.equals("type1")) {
+			url = "index/record";
+		} else if (type.equals("type2")) {
+			url = "index/live";
+		}
+		
+		map.put("url", url);
+		map.put("callNo", callNo);
 		
 		return map;
 	}

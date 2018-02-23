@@ -1,5 +1,6 @@
 package com.daniel.test.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,8 +15,8 @@ public class AudioDao {
 	@Autowired
     SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<Object> getAudioList(String test) {
-        return sqlSessionTemplate.selectList("selectAudioList", test);
+	public List<HashMap<String, Object>> getAudioList(String callNo) {
+        return sqlSessionTemplate.selectList("selectAudioList", callNo);
     }
 
 }
